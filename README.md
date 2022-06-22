@@ -3,64 +3,84 @@
 ## Project Overview
 
 ### Background:
-An initial analysis of a dozen stock returns by year was performed using Excel VBA code to determine which stocks appeared best to invest in. The original code proved satisfactory for the initial goal. However, to expand the analysis to thousands of different stocks, the initial code may be slower and take up more computing power than necessary. More efficient code can be used to create a more efficient analysis that is beneficial when working with a much larger dataset.
+An initial analysis of a dozen stock returns by year was performed using Excel VBA code to determine which stocks appeared best to invest in. The original code proved satisfactory for the initial goal. However, to expand the analysis to thousands of different stocks, the initial code would be slower and take up more computing power than necessary. More efficient code can be used to create a more efficient analysis that is beneficial when working with a much larger dataset.
 
 ### Purpose:
 To refactor the original code in order to improve the efficiency or calculation time needed to generate the returns for thousands of stocks.
 
 ## Results
 
-### Analysis of Outcomes Based on Launch Date:
-To analyze campaign outcomes by launch date, a pivot table and pivot line chart were used. The data was filtered by theater and year and organized to show the number of successful, failed, and canceled campaigns by month. The chart below shows all years of theater data with each line a different campaign outcome. The chart was saved as picture and linked to the Resources folder in this repo to be included in the analysis.
+### Analysis
+#### Process:
+To create the new macro, AllStocksAnalysisRefactored(), I first pasted in the initial code from VBA_Challenge VB Script file. The initial code creating the header rows in the output sheet, input message box for year input, and ticker array was already complete. Likewise for ending code setting up the formatting of the output data. These two sections of code were similiar to the code from our Module 2 macro AllStocksAnalysis(). In the middle section starting at comment 1a.) the refactored code was built using the instructions provided. The creation of a tickerIndex variable and output arrays for ticker volumes and starting and ending prices allowed for a quicker analysis that still produced correct results. The refactored code is shown below. The non-refactored code has NOT been included below to save space.
 
-
-
-### Analysis of Outcomes Based on Goals:
-A line chart was used to analyze campaign outcomes by fundraising goal $ amounts. Some initial summary data was compiled first through the use of countifs functions. To begin, goal $ amount categories like (<1,000, 1,000-4,999) were created. Then countifs formulas enabled me to get a numerical breakdown of campaign outcomes by goal buckets and play subcategory. Finally, percentages of the total were used to compare the outcomes. This serves as a better metric than total number of successful/failed outcomes. The chart below shows this percentage breakdown between outcome categories as they track over fundraising goal $ amounts. The chart was also saved as picture and linked to the Resources folder in this repo to be included in the analysis.
-
-
-
-### Challenges and Difficulties Encountered:
-
-Testing VBA code:
+Refactored VBA code:
 ```
-'Formatting
-    Worksheets("All Stocks Analysis").Activate
-    Range("A3:C3").Font.FontStyle = "Bold"
-    Range("A3:C3").Borders(xlEdgeBottom).LineStyle = xlContinuous
-    Range("B4:B15").NumberFormat = "#,##0"
-    Range("C4:C15").NumberFormat = "0.0%"
-    Columns("B").AutoFit
+'1a) Create a ticker Index
+    tickerIndex = 0
+    
+    '1b) Create three output arrays
+    Dim tickerVolumes(12) As Long
+    Dim tickerStartingPrices(12) As Single
+    Dim tickerEndingPrices(12) As Single
+     
+    ''2a) Create a for loop to initialize the tickerVolumes to zero.
+    For i = 0 To 11
+        tickerVolumes(i) = 0
 
-    dataRowStart = 4
-    dataRowEnd = 15
+    Next i
+    
+    ''2b) Loop over all the rows in the spreadsheet.
+    For i = 2 To RowCount
+    
+        '3a) Increase volume for current ticker
+        tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+        
+        '3b) Checking if the current row is the first row with the selected tickerIndex.
+        If Cells(i - 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
+            tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+        
+        End If
+            
+        '3c) Checking if the current row is the last row with the selected ticker. If the next row’s ticker doesn’t match, increase the tickerIndex.
+        If Cells(i + 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
+            tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+            
+        End If
+        
+        '3d Increasing the tickerIndex.
+        If Cells(i + 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
+            tickerIndex = tickerIndex + 1
+            
+        End If
+                    
+    Next i
+    
+    '4) Loop through your arrays to output the Ticker, Total Daily Volume, and Return.
+    For i = 0 To 11
+        
+        Worksheets("All Stocks Analysis").Activate
+       
+        Cells(4 + i, 1).Value = tickers(i)
+        Cells(4 + i, 2).Value = tickerVolumes(i)
+        Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
+    
+    Next i
 ```
+#### Outcomes:
+The refactored code worked as designed and returned stock returns for both 2017 and 2018 that matched the original macro. The stock returns show a clear downturn in 2018 for most stocks compared to 2017. Of the twelve listed, most had a poor performing 2018 after seeing growth in 2017. Using these two years as a guide, it seems advisable to invest in Enphase Energy (ENPH) and Sunrun Inc (RUN) due to back-to-back years of strong returns for both stocks.
 
-I encountered some difficulty putting the countifs formulas together as I was getting an error from Excel saying “There’s a problem with this formula.” I had forgotten to specify the $ goal criteria in brackets as I figured numbers didn’t need quotes like text did. A bit of “google-fu” solved the problem! I also had issues getting the Outcomes vs Goals image link to work on this readme file. Appears a typo was the cause.
+
 
 ## Summary
 
-### Advantages and Disadvantages of Refactoring Code
-To 
+### Advantages and Disadvantages of Refactoring Code:
+Refactoring code can often times make things more organized and "cleaner." This will help others more easily read or follow through at later dates and can make any debugging easier as well. More efficient code may also lead to faster processing/run times, which is very important when running analyses in large datasets. Yet, refactoring can bring disadvantages at times. New bugs may be created in the refactoring process leading to the breaking of something that was working. Also, the time spent refactoring might not be worth the investment in time, especially if the end-user never notices an improvement.
 
-### Advantages and Disadvantages of Refactoring Stock Analysis Code
+### Advantages and Disadvantages of Refactoring Stock Analysis Code:
 
-As it pertains to this project, 
+The benefit of quicker processing time was achieved in the stock analysis refactor macro. Run time using the original macro created in Module 2 was around .60 seconds for both 2017 and 2018. The refactored macro decreased run times to a little under .10 seconds for both years. If the number of stocks being analyzed increased from twelve to tens of thousands, this improved processing time would be quit beneficial. However, for this project, the drop from .6 seconds to .10 seconds is inmaterial to the user when just twelve stocks are used. The original code already worked and completed in under a second. In real life, if the user knew they would be only ever need to analyze a couple dozen different stocks, then the effort undertaken to refactor the orignal code would not have been worth the effort.
 
 ![VBA_Challenge_2017](https://github.com/bfox87/stock-analysis/blob/main/Resources/VBA_Challenge_2017.PNG)
 
-too
-
 ![VBA_Challenge_2018](https://github.com/bfox87/stock-analysis/blob/main/Resources/VBA_Challenge_2018.PNG)
-
-T00
-- Outcomes vs Launch Date Conclusions:
-    1. When all years are looked at together, the best time for a theater kickstarter campaign is late Spring/early Summer. This is the time of year when the likelihood of success is highest. The month of May appeared the most popular month for total theater kickstarters with the number of successful campaigns particularly pronounced. Roughly 2/3 of the total campaigns launched in May were successful.
-    2. It appears to be a bad decision to launch a theater kickstarter in the month of December. The number of successes and failures are roughly even. This makes logical sense as most people are busy with holiday festivities and can be financially strapped based on other gift or donation commitments common during the holidays.
-
-- Outcomes vs Goals Conclusions:
-    1. It is recommended to keep your fundraising goals modest to give your campaign the highest likelihood of success. Close to 3 out of 4 fundraisers with goals under $5,000 are successful.
-
-- Dataset Limitations:
-    - Using this dataset in 2022 to analyze outcomes by launch date raises some concerns. There appears to be no theater data beyond the year of 2017. This is five years ago and things may have changed since then. Ideally more recent data would be included.
-    - Additionally, the location data could be more detailed than country level. Some of these countries are quite large (i.e. U.S.) and there might be significant variability in fundraiser characteristics and outcomes due to geographic region, particularly city the play will be held in.
