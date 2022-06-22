@@ -15,12 +15,12 @@ To analyze if certain characteristics of play fundraising campaigns have an impa
 ### Analysis of Outcomes Based on Launch Date:
 To analyze campaign outcomes by launch date, a pivot table and pivot line chart were used. The data was filtered by theater and year and organized to show the number of successful, failed, and canceled campaigns by month. The chart below shows all years of theater data with each line a different campaign outcome. The chart was saved as picture and linked to the Resources folder in this repo to be included in the analysis.
 
-![VBA_Challenge_2017](https://github.com/bfox87/stock-analysis/blob/main/Resources/VBA_Challenge_2017.png)
+![VBA_Challenge_2017](https://github.com/bfox87/stock-analysis/tree/main/Resources/VBA_Challenge_2017.png)
 
 ### Analysis of Outcomes Based on Goals:
 A line chart was used to analyze campaign outcomes by fundraising goal $ amounts. Some initial summary data was compiled first through the use of countifs functions. To begin, goal $ amount categories like (<1,000, 1,000-4,999) were created. Then countifs formulas enabled me to get a numerical breakdown of campaign outcomes by goal buckets and play subcategory. Finally, percentages of the total were used to compare the outcomes. This serves as a better metric than total number of successful/failed outcomes. The chart below shows this percentage breakdown between outcome categories as they track over fundraising goal $ amounts. The chart was also saved as picture and linked to the Resources folder in this repo to be included in the analysis.
 
-![VBA_Challenge_2018](https://github.com/bfox87/stock-analysis/blob/main/Resources/VBA_Challenge_2018.png)
+![VBA_Challenge_2018](https://github.com/bfox87/stock-analysis/tree/main/Resources/VBA_Challenge_2018.png)
 
 ### Challenges and Difficulties Encountered:
 I encountered some difficulty putting the countifs formulas together as I was getting an error from Excel saying “There’s a problem with this formula.” I had forgotten to specify the $ goal criteria in brackets as I figured numbers didn’t need quotes like text did. A bit of “google-fu” solved the problem! I also had issues getting the Outcomes vs Goals image link to work on this readme file. Appears a typo was the cause.
