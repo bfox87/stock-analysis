@@ -12,7 +12,7 @@ To refactor the original code in order to improve the efficiency or calculation 
 
 ### Analysis
 #### Process:
-To create the new macro, AllStocksAnalysisRefactored(), I first pasted in the initial code from VBA_Challenge VB Script file. The initial code creating the header rows in the output sheet, input message box for year input, and ticker array was already complete. Likewise for ending code setting up the formatting of the output data. These two sections of code were similiar to the code from our Module 2 macro AllStocksAnalysis(). In the middle section starting at comment 1a.) the refactored code was built using the instructions provided. The creation of a tickerIndex variable and output arrays for ticker volumes and starting and ending prices allowed for a quicker analysis that still produced correct results. The refactored code is shown below. The non-refactored code has NOT been included below to save space.
+To create the new macro, AllStocksAnalysisRefactored(), I first pasted in the initial code from VBA_Challenge VB Script file. The initial code creating the header rows in the output sheet, input message box for year input, and ticker array. Likewise for the ending code setting up the formatting of the output data. These two sections of code were similiar to the code from our Module 2 macro AllStocksAnalysis(). In the middle section starting at comment 1a.) the refactored code was built using the instructions provided. The creation of a tickerIndex variable and output arrays for ticker volumes and starting and ending prices allowed for a quicker analysis that still produced correct results. The refactored code is shown below. The non-refactored code from beginning and ending of the macro has NOT been included below to save space.
 
 Refactored VBA code:
 ```
@@ -70,16 +70,18 @@ Refactored VBA code:
 #### Outcomes:
 The refactored code worked as designed and returned stock returns for both 2017 and 2018 that matched the original macro. The stock returns show a clear downturn in 2018 for most stocks compared to 2017. Of the twelve listed, most had a poor performing 2018 after seeing growth in 2017. Using these two years as a guide, it seems advisable to invest in Enphase Energy (ENPH) and Sunrun Inc (RUN) due to back-to-back years of strong returns for both stocks.
 
+![2017Stock_Returns](https://github.com/bfox87/stock-analysis/blob/main/Resources/2017Stock_Returns.PNG)
 
+![2018Stock_Returns](https://github.com/bfox87/stock-analysis/blob/main/Resources/2018Stock_Returns.PNG)
 
 ## Summary
 
 ### Advantages and Disadvantages of Refactoring Code:
-Refactoring code can often times make things more organized and "cleaner." This will help others more easily read or follow through at later dates and can make any debugging easier as well. More efficient code may also lead to faster processing/run times, which is very important when running analyses in large datasets. Yet, refactoring can bring disadvantages at times. New bugs may be created in the refactoring process leading to the breaking of something that was working. Also, the time spent refactoring might not be worth the investment in time, especially if the end-user never notices an improvement.
+Refactoring code can often times make things more organized and "cleaner." This will help others more easily read or follow through at later dates and can make any debugging easier as well. More efficient code may also lead to faster processing/run times, which is very important when running analyses in large datasets. Yet, refactoring can bring disadvantages at times. New bugs may be created in the refactoring process leading to the breaking of something that was already working. Also, the time spent refactoring might not be worth the investment in time, especially if the end-user never notices an improvement.
 
-### Advantages and Disadvantages of Refactoring Stock Analysis Code:
+### Advantages and Disadvantages of Refactoring the Stock Analysis Code:
 
-The benefit of quicker processing time was achieved in the stock analysis refactor macro. Run time using the original macro created in Module 2 was around .60 seconds for both 2017 and 2018. The refactored macro decreased run times to a little under .10 seconds for both years. If the number of stocks being analyzed increased from twelve to tens of thousands, this improved processing time would be quit beneficial. However, for this project, the drop from .6 seconds to .10 seconds is inmaterial to the user when just twelve stocks are used. The original code already worked and completed in under a second. In real life, if the user knew they would be only ever need to analyze a couple dozen different stocks, then the effort undertaken to refactor the orignal code would not have been worth the effort.
+The benefit of quicker processing time was achieved in the stock analysis refactor macro. Run time using the original macro created in Module 2 was around .60 seconds for both 2017 and 2018. The refactored macro decreased run times to a little under .10 seconds for both years. If the number of stocks being analyzed increased from twelve to tens of thousands, this improved processing time would be quite beneficial. However, for this project, the drop from .6 seconds to .10 seconds is inmaterial to the user when just twelve stocks are used. The original code already worked and completed in under a second. In real life, if the user knew they would be only ever need to analyze a couple dozen different stocks, then the effort undertaken to refactor the orignal code would not have been worth the effort.
 
 ![VBA_Challenge_2017](https://github.com/bfox87/stock-analysis/blob/main/Resources/VBA_Challenge_2017.PNG)
 
