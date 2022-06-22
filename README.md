@@ -1,31 +1,59 @@
 # Stock Analysis Using Excel VBA
 
-# Kickstarting with Excel
-
 ## Project Overview
 
 ### Background:
-An analysis of how play fundraising fared in relation to their launch dates and funding goals was requested by Louise to determine if any insights could be gleaned to provide to her with useful information.
+An initial analysis of a dozen stock returns by year was performed using Excel VBA code to determine which stocks appeared best to invest in. The original code proved satisfactory for the initial goal. However, to expand the analysis to thousands of different stocks, the initial code may be slower and take up more computing power than necessary. More efficient code can be used to create a more efficient analysis that is beneficial when working with a much larger dataset.
 
 ### Purpose:
-To analyze if certain characteristics of play fundraising campaigns have an impact of their fundraising success. This will enable Louise to determine how her campaign compares and gives her knowledge for any future fundraising campaigns.
+To refactor the original code in order to improve the efficiency or calculation time needed to generate the returns for thousands of stocks.
 
-## Analysis and Challenges
+## Results
 
 ### Analysis of Outcomes Based on Launch Date:
 To analyze campaign outcomes by launch date, a pivot table and pivot line chart were used. The data was filtered by theater and year and organized to show the number of successful, failed, and canceled campaigns by month. The chart below shows all years of theater data with each line a different campaign outcome. The chart was saved as picture and linked to the Resources folder in this repo to be included in the analysis.
 
-![VBA_Challenge_2017](https://github.com/bfox87/stock-analysis/tree/main/Resources/VBA_Challenge_2017.png)
+
 
 ### Analysis of Outcomes Based on Goals:
 A line chart was used to analyze campaign outcomes by fundraising goal $ amounts. Some initial summary data was compiled first through the use of countifs functions. To begin, goal $ amount categories like (<1,000, 1,000-4,999) were created. Then countifs formulas enabled me to get a numerical breakdown of campaign outcomes by goal buckets and play subcategory. Finally, percentages of the total were used to compare the outcomes. This serves as a better metric than total number of successful/failed outcomes. The chart below shows this percentage breakdown between outcome categories as they track over fundraising goal $ amounts. The chart was also saved as picture and linked to the Resources folder in this repo to be included in the analysis.
 
-![VBA_Challenge_2018](https://github.com/bfox87/stock-analysis/tree/main/Resources/VBA_Challenge_2018.png)
+
 
 ### Challenges and Difficulties Encountered:
+
+Testing VBA code:
+```
+'Formatting
+    Worksheets("All Stocks Analysis").Activate
+    Range("A3:C3").Font.FontStyle = "Bold"
+    Range("A3:C3").Borders(xlEdgeBottom).LineStyle = xlContinuous
+    Range("B4:B15").NumberFormat = "#,##0"
+    Range("C4:C15").NumberFormat = "0.0%"
+    Columns("B").AutoFit
+
+    dataRowStart = 4
+    dataRowEnd = 15
+```
+
 I encountered some difficulty putting the countifs formulas together as I was getting an error from Excel saying “There’s a problem with this formula.” I had forgotten to specify the $ goal criteria in brackets as I figured numbers didn’t need quotes like text did. A bit of “google-fu” solved the problem! I also had issues getting the Outcomes vs Goals image link to work on this readme file. Appears a typo was the cause.
 
-## Results
+## Summary
+
+### Advantages and Disadvantages of Refactoring Code
+To 
+
+### Advantages and Disadvantages of Refactoring Stock Analysis Code
+
+As it pertains to this project, 
+
+![VBA_Challenge_2017](https://github.com/bfox87/stock-analysis/blob/main/Resources/VBA_Challenge_2017.PNG)
+
+too
+
+![VBA_Challenge_2018](https://github.com/bfox87/stock-analysis/blob/main/Resources/VBA_Challenge_2018.PNG)
+
+T00
 - Outcomes vs Launch Date Conclusions:
     1. When all years are looked at together, the best time for a theater kickstarter campaign is late Spring/early Summer. This is the time of year when the likelihood of success is highest. The month of May appeared the most popular month for total theater kickstarters with the number of successful campaigns particularly pronounced. Roughly 2/3 of the total campaigns launched in May were successful.
     2. It appears to be a bad decision to launch a theater kickstarter in the month of December. The number of successes and failures are roughly even. This makes logical sense as most people are busy with holiday festivities and can be financially strapped based on other gift or donation commitments common during the holidays.
